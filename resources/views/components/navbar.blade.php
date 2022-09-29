@@ -1,10 +1,10 @@
 <div class="navbar bg-base-100">
-    <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+    <div class="flex-1" id="logo">
+        <a class="btn btn-ghost normal-case text-xl" href="/">BlogMito</a>
     </div>
-    <div class="flex-none">
+    <div class="flex-none" id="navitem">
         <ul class="menu menu-horizontal p-0">
-            <li><a>Item 1</a></li>
+            <li><a href="{{ route('posts.create') }}">Create</a></li>
             <li tabindex="0">
                 <a>
                     Parent
