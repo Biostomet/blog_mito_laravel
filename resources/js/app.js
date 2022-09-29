@@ -1,3 +1,7 @@
 import './bootstrap';
-require('@fortawesome/fontawesome-free/js/all.js');
-import './scroll'
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
