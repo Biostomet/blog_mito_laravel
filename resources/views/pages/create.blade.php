@@ -2,7 +2,7 @@
     <x-navbar />
     <div class="container">
         <h1 class="pt-6 font-bold text-4xl pb-10">New post</h1>
-        <form action="{{ route('posts.store') }}" method="POST">
+        <form action="{{ route('posts.store') }}" enctype="multipart/form-data" method="POST">
             @csrf
             <div class="">
                 {{-- title --}}
@@ -14,8 +14,13 @@
                     placeholder="Votre contenu...">{{ old('content') }}</textarea>
                 <x-error-msg errorName='content' />
                 {{-- img --}}
-                <input type="text" class="block w-full rounded-lg border border-gray-400" name="url_img"
-                    placeholder="Url de votre image" value="https://source.unsplash.com/400x400/?animals?1">
+                <div class="mt-4">
+                    <label for="">Choisir une image</label>
+                    <input type="file" name="url_img" class="block" id="">
+                    <x-error-msg errorName="url_img" />
+                </div>
+                {{--   <input type="text" class="block w-full rounded-lg border border-gray-400" name="url_img"
+                    placeholder="Url de votre image" value="https://source.unsplash.com/400x400/?animals?1"> --}}
                 <button class="btn btn-primary mt-6 w-full">Envoyer</button>
             </div>
         </form>

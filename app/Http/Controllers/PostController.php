@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
@@ -39,14 +40,19 @@ class PostController extends Controller
   public function store(StorePostRequest $request)
   {
     // dd($request->all());
+    // dd($request->file('url_img'));
     $request->validate([
       'title' => 'required|min:5|string|max:20',
-      'content' => 'required|min:20|max:350|string'
+      'content' => 'required|min:20|max:350|string',
+      'url_img' => 'required|image|mimes:png,jpg,jpeg|max:20000',
     ]);
+
+    $validateImg = $request->file('url_img')->store('posts');
+
     Post::create([
       'title' => $request->title,
       'content' => $request->content,
-      'url_img' => $request->url_img,
+      'url_img' => $validateImg,
       'created_at' => now(),
     ]);
     return redirect()
@@ -90,15 +96,24 @@ class PostController extends Controller
     if ($request->has('is_published')) {
       $published = 1;
     }
+    // verify if file exist
+    if ($request->hasFile('url_img')) {
+      //delete previous img
+      Storage::delete($post->url_img);
+      //store the new img
+      $post->url_img = $request->file('url_img')->store('posts');
+    }
     $request->validate([
       'title' => 'required|min:5|string|max:20',
-      'content' => 'required|min:20|max:350|string'
+      'content' => 'required|min:20|max:350|string',
+      'url_img' => 'image|mimes:png,jpg,jpeg|max:20000',
     ]);
+
 
     $post->update([
       'title' => $request->title,
       'content' => $request->content,
-      'url_img' => $request->url_img,
+      'url_img' => $post->url_img,
       'is_published' => $published,
       'updated_at' => now(),
     ]);

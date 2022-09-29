@@ -1,7 +1,7 @@
 <x-layouts.main-layout :title="$post->title">
     <x-navbar />
     <div class="card w-96 bg-base-100 shadow-xl m-2">
-        <figure><img src="{{ $post->url_img }}" alt="{{ $post->title }}" /></figure>
+        <figure><img src="{{ asset('storage/' . $post->url_img) }}" alt="{{ $post->title }}" /></figure>
         <div class="card-body">
             <h2 class="card-title">{{ $post->title }}</h2>
             <p>{{ $post->content }}</p>
