@@ -14,6 +14,11 @@ class PostController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+  public function __construct()
+  {
+    $this->middleware(['auth'])->except(['index', 'show']);
+  }
+
   public function index()
   {
     $posts = Post::orderBy('updated_at', 'desc')->paginate(6);
@@ -134,5 +139,12 @@ class PostController extends Controller
     return redirect()
       ->route('home')
       ->with('status', "L'article a bien été supprimé");
+  }
+
+  public function allPosts()
+  {
+    $posts = Post::orderBy('updated_at', 'desc')->paginate(5);
+
+    return view('pages.all-posts', compact('posts'));
   }
 }

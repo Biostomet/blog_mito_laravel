@@ -14,7 +14,6 @@
 
 <body>
     @include('partials._session')
-    <h1 id="toto">Hello word</h1>
     {{ $slot }}
     @vite('resources/js/app.js')
 </body>
